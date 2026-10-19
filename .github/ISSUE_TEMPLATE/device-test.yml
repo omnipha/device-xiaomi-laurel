@@ -1,0 +1,17 @@
+name: Device test
+description: Hardware result or reproduction request for this device
+title: "[test] "
+labels: ["agent-ready"]
+body:
+  - type: textarea
+    attributes:
+      label: Result
+      description: Boot, network, and SSH observations. No secrets or host addresses.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Cross-repo links
+      description: Link the ports, linux-<soc>, or images issue or pull request.
+    validations:
+      required: false

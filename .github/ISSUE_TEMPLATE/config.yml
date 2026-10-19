@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Package and device database
+    url: https://github.com/omnipha/ports/issues/new/choose
+    about: Package, firmware policy, or device.yaml changes
+  - name: Kernel
+    url: https://github.com/omnipha/linux-sm61x5
+    about: Shared kernel implementation; kernel repositories do not take issue-driven edits
+  - name: Images
+    url: https://github.com/omnipha/images/issues/new/choose
+    about: Reproducible image build definitions

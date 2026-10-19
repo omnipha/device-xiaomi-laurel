@@ -1,0 +1,8 @@
+[
+  {"name": "agent-ready", "color": "0E8A16", "description": "Eligible for the device supervisor"},
+  {"name": "in-progress", "color": "FBCA04", "description": "Claimed by a worker"},
+  {"name": "blocked", "color": "B60205", "description": "Needs a concrete unblocker"},
+  {"name": "prio:P0", "color": "B60205", "description": "Highest priority"},
+  {"name": "prio:P1", "color": "D93F0B", "description": "Normal priority"},
+  {"name": "prio:P2", "color": "FBCA04", "description": "Low priority"}
+]
