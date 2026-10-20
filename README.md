@@ -11,7 +11,7 @@ blobs, or secrets.
 | Name | Xiaomi Mi A3 |
 | Vendor | Xiaomi |
 | SoC | `sm6125` |
-| Status (measured) | boot=works, ssh=works, wifi=works, display=works, gpu=works, ui=partial; modem=partial; cameras=broken; rest=untested |
+| Status (measured) | boot=works, ssh=works, wifi=works, display=works, gpu=works, ui=partial; modem=partial; cameras=untested; rest=untested |
 | Canonical status | [`ports/devices/xiaomi-laurel/device.yaml`](https://github.com/omnipha/ports/blob/main/devices/xiaomi-laurel/device.yaml) |
 | Kernel | [`omnipha/linux-sm61x5`](https://github.com/omnipha/linux-sm61x5) branch `omnipha` |
 | Packages | [`omnipha/ports`](https://github.com/omnipha/ports) |
@@ -45,20 +45,20 @@ What we have actually proven, and how we know:
   Lockscreen / Phosh touch behaviour is not yet exercised.
 - **modem** — `status: partial`. MPSS remoteproc starts; no call / data test yet.
   Tracked in [issue #8](https://github.com/omnipha/device-xiaomi-laurel/issues/8).
-- **cameras** — `status: broken`. This is **not** “untested”: bring-up is open
-  and the cameras do not enumerate. Tracked in
-  [issue #1](https://github.com/omnipha/device-xiaomi-laurel/issues/1).
+- **cameras** — `status: untested`. Camera bring-up is open, but the
+  [camera issue #1](https://github.com/omnipha/device-xiaomi-laurel/issues/1)
+  contains no measured camera test. Do not infer a driver defect or working
+  camera until a test is recorded.
 
 Things we explicitly have **not** measured yet (i.e. “untested”, not broken):
 
-`audio`, `bluetooth`, `sensors`, `gps`, `nfc`, `touchscreen`. Each one has a
-tracker issue (#2–#7). Do **not** write them up as confirmed-working before
-running them.
+`cameras`, `audio`, `bluetooth`, `sensors`, `gps`, `nfc`, `touchscreen`.
+Tracker issues #1–#7 describe test steps. Do **not** mark them `works`,
+`partial` or `broken` until a specific observation has a public test record.
 
-> "broken" vs "untested" matters: the former means bring-up is in flight and
-> currently fails; the latter means no one has run the test yet. Do not
-> promote an untested item to broken without evidence — and do not promote a
-> broken item to works without evidence either.
+> `broken` requires an observed failing test. An open bring-up issue is not
+> evidence of failure. See the evidence-gated status rules in
+> [ports/CONTRIBUTING.md](https://github.com/omnipha/ports/blob/main/CONTRIBUTING.md).
 
 ## No downloadable Omnipha image (yet)
 
@@ -85,9 +85,10 @@ if you find one, open an issue.
 ### Building, the moment a real procedure exists
 
 We intentionally do not publish a build runbook here until `images` actually
-produces an artifact end-to-end. Concretely, the procedure will live in
-[`omnipha/images/devices/xiaomi-laurel/image.yaml`](https://github.com/omnipha/images/blob/main/devices/xiaomi-laurel/image.yaml)
-and in the `images` repo, not in this file. This README will be extended to
+produces an artifact end-to-end. Concretely, the procedure will be linked from the published `ports` release evidence and the `images`
+release, with pinned inputs and device-specific rollback instructions. The
+[`image.yaml`](https://github.com/omnipha/images/blob/main/devices/xiaomi-laurel/image.yaml)
+remains an experimental definition, not an executable guide. This README will be extended to
 reference the real procedure when one exists — not before.
 
 Until then, the only “reproduce” step that's safe to run is reading
@@ -98,8 +99,8 @@ Until then, the only “reproduce” step that's safe to run is reading
 `ports` and `images` both say `flash.method: fastboot`. **This README does not
 document a Mi A3 fastboot runbook** because:
 
-1. The generic upstream flow (pmaports `pmbootstrap flasher flash_kernel` /
-   `flash_userdata`) is what the image team will publish, not us.
+1. A generic upstream flasher flow is not a reviewed Mi A3 rollback-safe
+   installation procedure.
 2. Inheriting a copy-paste of `fastboot oem unlock` / bootloader sequence is
    easy to get wrong and could brick units.
 3. Some Mi A3 units are on Android 11 firmware, which the UBports installer
@@ -107,10 +108,9 @@ document a Mi A3 fastboot runbook** because:
    `device.yaml` `upstream_os.ut.note`). That decision belongs in `ports`, not
   in this tracker.
 
-If you have flashed a unit and have a working procedure you want to publish,
-open a PR that **links to** the upstream pmapOS / UTouch / official fastboot
-pages and includes your exact command transcript — do not paraphrase or invent
-steps.
+If you have a tested procedure to propose, open an issue with a redacted
+command transcript, tested firmware variant and verified rollback path. Link
+upstream and OEM documentation. Do not ask others to flash from a draft.
 
 ## Cross-repo routing (where work goes)
 

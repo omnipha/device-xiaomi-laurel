@@ -18,13 +18,14 @@ The overarching rule:
 
 ## Filing an issue
 
-For an open bring-up item (broken cameras, untested audio, etc.) the issue
+For an open bring-up item (untested cameras, audio, etc.) the issue
 template is good enough — pick the right tracker.
 
 For a *new* observation (e.g. "wifi stops after suspend on my unit"):
 
-1. Open an issue here with labels `in-progress` and the matching `prio:`
-   label from [`labels.json`](../labels.json).
+1. Open an issue here; include the relevant hardware component. Maintainers
+   triage priorities and ownership. Do not claim `in-progress` unless actively
+   working on it.
 2. Include:
    - **device variant** — `4/64` or `4/128` (`device.yaml` `variants:`).
    - **firmware version on the unit** — Android 9 or Android 11.
@@ -65,13 +66,12 @@ Until `omnipha/images` builds and publishes an artifact for this device,
 
 1. Open the PR against `omnipha/images/devices/xiaomi-laurel/image.yaml`
    (or the wider `images` repo).
-2. The workflow `Validate image definitions` will lint it against a pinned
-   `ports` SHA.
+2. The workflow `Validate image definitions` lints against a pinned
+   `ports` SHA; it does not build an image.
 3. The flash procedure you describe must point at **upstream** postmarketOS /
    Ubuntu Touch (UBports) / OEM pages, not at a recipe you wrote from memory.
-4. Once that PR is merged and the `BLOCKED:` line in
-   `images/.github/workflows/build.yml` goes away, update this repo's README
-   to point at it — not before.
+4. Only once `ports.release` links an actual checked image, build manifest,
+   physical evidence and rollback guide, update this README to point at them.
 
 ## Fastboot instructions: do not invent them
 
